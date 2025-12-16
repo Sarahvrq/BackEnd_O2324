@@ -28,8 +28,8 @@ type Mutation {
     register: (email: String!, password: String!): String!
     login (email: String!, password: String!): String!
 
-    addContact(name: String!, lastname: String!, telefono: String!): Contact!
-    updateContact(_id: ID!, name: String, lastname: String, telefono: String): Contact!
+    addContact(name: String!, lastname: String!, telefono: String!, Country: String!): Contact!
+    updateContact(_id: ID!, name: String, lastname: String, telefono: String, Country: String): Contact!
     deleteContact(_id: ID!): Boolean!
 }
 
