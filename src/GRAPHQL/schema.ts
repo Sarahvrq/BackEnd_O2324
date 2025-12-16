@@ -24,7 +24,7 @@ type Query {
 }
 
 type Mutation {
-    register: (email: String!, password: String!): String!
+    register (email: String!, password: String!): String!
     login (email: String!, password: String!): String!
 
     addContact(name: String!, lastname: String!, telefono: String!, Country: String!): Contact!

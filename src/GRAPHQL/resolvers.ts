@@ -55,7 +55,7 @@ export const resolvers: IResolvers = {
 
     User: {
         contacts: async(parent: User)=> {
-            return await ArrayContactosDeUser(parent.contacts)
+            return await ArrayContactosDeUser(parent.contacts);
         }
     }
 };
