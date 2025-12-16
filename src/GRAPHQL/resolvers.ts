@@ -4,7 +4,7 @@ import { IResolvers } from "@graphql-tools/utils";
 import { signToken } from "../auth";
 import { USER_COLLECTION } from "../utils";
 import { CONTACTS_COLLECTION } from "../utils";
-import { createContact, FindOneContact, getContacts } from "../COLLECTIONS/Contacts";
+import { createContact, deleteContact, FindOneContact, getContacts, updateContact } from "../COLLECTIONS/Contacts";
 import { createUserAKAregister, validateUserAKAlogin } from "../COLLECTIONS/Users";
 
 export const resolvers: IResolvers = {
@@ -41,17 +41,18 @@ export const resolvers: IResolvers = {
             return await createContact(name, lastname, telefono, country);
         },
 
-        updateContact: async(_,{name, lastname, telefono, country}, {user})=>{
-             if(!user) throw new Error ("ERROR: Necesitas estar logeado para update contacto");
-            return await 
+        updateContact: async(_,{user}, {contact_id})=>{
+            if(!user) throw new Error ("ERROR: Necesitas estar logeado para update contacto");
+            return await updateContact(user,contact_id);
         },
 
-        deleteContact: async()=>{
-
+        deleteContact: async(_,{id}, {user})=>{
+            if(!user) throw new Error ("ERROR: Necesitas estar logeado para borrar contacto");
+            return await deleteContact(id);
         }
     },
 
-    User: {
+    User: async (parent: contacts)=>{
 
     }
 };
