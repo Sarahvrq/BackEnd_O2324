@@ -1,6 +1,6 @@
 import { getDB } from "../DB/mongo"
 import bcrypt from "bcryptjs" //importante para encriptar (y no desenctriptar)
-import { CONTACTS_COLLECTION } from "../utils";
+import { CONTACTS_COLLECTION, USER_COLLECTION } from "../utils";
 //import { getYPorID } from "./Y"; //para usar funciones de otra coleccion
 import { ObjectId } from "mongodb";
 
@@ -25,7 +25,7 @@ export const FindOneContact = async (user_id: ObjectId) => {
 
 export const VerificarTelefBD = async (telefono: string) => {
     const db = getDB();
-    const result = await db.collection(CONTACTS_COLLECTION).find({telefono});
+    const result = await db.collection(CONTACTS_COLLECTION).findOne({telefono});
     if(result) throw new Error ("Contacto con ese telefono ya existe");
 
     return result;
@@ -38,6 +38,29 @@ export const createContact = async (name: string, lastname: string, telefono: st
     
     const newContact = await FindOneContact(result.insertedId);
     if(newContact)
-        
+
     return newContact;
+};
+
+export const updateContact = async (user_id: ObjectId, contact_id: ObjectId) => {
+    const db = getDB();
+    const localUserId = new ObjectId(user_id);
+    const localContactId = new ObjectId(contact_id);
+
+    const ContactPorUpdate = await db.collection(CONTACTS_COLLECTION).findOne({_id: localContactId});
+    if(!ContactPorUpdate) throw new Error ("Contacto no encontrado");
+
+    await db.collection(USER_COLLECTION).updateOne({_id: localUserId}, {$set: {contacto: contact_id}});
+
+    const contactoUserUpdated = await db.collection(USER_COLLECTION).findOne({_id: localContactId});
+    return contactoUserUpdated;
+}
+
+export const deleteContact = async (id: string) => {
+  const db = getDB();
+  const result = await db.collection(CONTACTS_COLLECTION).deleteOne({_id: new ObjectId(id)});
+
+  if (result.deletedCount === 0)throw new Error("Contacto no existe");
+
+  return true;
 };
