@@ -28,7 +28,7 @@ type Mutation {
     login (email: String!, password: String!): String!
 
     addContact(name: String!, lastname: String!, telefono: String!, Country: String!): Contact!
-    updateContact(_id: ID!, name: String, lastname: String, telefono: String, Country: String): Contact!
+    updateContact(_id: ID!, name: String, lastname: String, telefono: String): Contact!
     deleteContact(_id: ID!): Boolean!
 }
 
