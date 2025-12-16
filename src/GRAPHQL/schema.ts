@@ -14,7 +14,6 @@ type Contact {
     lastname: String!
     telefono: String!
     Country: String!
-    timeCountry: String!
 }
 
 type Query {

@@ -4,8 +4,6 @@ import { USER_COLLECTION } from "../utils";
 //import { getYPorID } from "./Y"; //para usar funciones de otra coleccion
 import { Db, ObjectId } from "mongodb";
 
-
-
 export const createUserAKAregister = async (email: string, password: string) => {
     const db = getDB();
     const passEncrypt = await bcrypt.hash(password, 10);
