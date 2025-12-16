@@ -64,3 +64,10 @@ export const deleteContact = async (id: string) => {
 
   return true;
 };
+
+
+export const ArrayContactosDeUser = async (ids: Array<string>) => {
+    const db = getDB();
+    const idsContactos = ids.map(x => new ObjectId(x));
+    return await db.collection(CONTACTS_COLLECTION).find({_id: {$in: idsContactos}}).toArray();
+};

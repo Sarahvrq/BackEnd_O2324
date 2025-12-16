@@ -6,6 +6,7 @@ import { USER_COLLECTION } from "../utils";
 import { CONTACTS_COLLECTION } from "../utils";
 import { createContact, deleteContact, FindOneContact, getContacts, updateContact } from "../COLLECTIONS/Contacts";
 import { createUserAKAregister, validateUserAKAlogin } from "../COLLECTIONS/Users";
+import {User} from "../TYPES/User";
 
 export const resolvers: IResolvers = {
 
@@ -52,7 +53,9 @@ export const resolvers: IResolvers = {
         }
     },
 
-    User: async (parent: contacts)=>{
-
+    User: {
+        contacts: async(parent: User)=> {
+            
+        }
     }
 };
