@@ -4,7 +4,7 @@ import { IResolvers } from "@graphql-tools/utils";
 import { signToken } from "../auth";
 import { USER_COLLECTION } from "../utils";
 import { CONTACTS_COLLECTION } from "../utils";
-import { createContact, deleteContact, FindOneContact, getContacts, updateContact } from "../COLLECTIONS/Contacts";
+import { ArrayContactosDeUser, createContact, deleteContact, FindOneContact, getContacts, updateContact } from "../COLLECTIONS/Contacts";
 import { createUserAKAregister, validateUserAKAlogin } from "../COLLECTIONS/Users";
 import {User} from "../TYPES/User";
 
@@ -55,7 +55,7 @@ export const resolvers: IResolvers = {
 
     User: {
         contacts: async(parent: User)=> {
-            
+            return await ArrayContactosDeUser(parent.contacts)
         }
     }
 };
